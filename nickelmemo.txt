@@ -1,0 +1,24 @@
+# restart and reload with hook.so
+
+PLATFORM=ntx508
+
+export INTERFACE=eth0
+export WIFI_MODULE=dhd
+
+export QWS_MOUSE_PROTO="tslib_nocal:/dev/input/event1"
+export QWS_KEYBOARD=imx508kbd:/dev/input/event0
+export QWS_DISPLAY=Transformed:imx508:Rot90
+export NICKEL_HOME=/mnt/onboard/.kobo
+export LD_LIBRARY_PATH=/usr/local/Kobo
+export WIFI_MODULE_PATH=/drivers/$PLATFORM/wifi/$WIFI_MODULE.ko
+export LANG=en_US.UTF-8
+export UBOOT_MMC=/etc/u-boot/$PLATFORM/u-boot.mmc
+export UBOOT_RECOVERY=/etc/u-boot/$PLATFORM/u-boot.recovery
+
+killall nickel
+
+QTLIB=/usr/local/Trolltech/QtEmbedded-4.6.2-arm/lib
+
+LD_PRELOAD=$QTLIB/libQtCore.so.4.6.2:$QTLIB/libQtGui.so.4.6.2:/mnt/onboard/hook.so /usr/local/Kobo/nickel -qws &
+
+exit
