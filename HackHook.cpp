@@ -110,8 +110,10 @@ void Ui_IconPowerView::setupUi(QWidget *widget)
 	glob_t g;
 	if(chdir("/mnt/onboard/sleep") == 0) {
 		if(glob("*.png", GLOB_NOSORT | GLOB_NOESCAPE, NULL, &g) == 0) {
-			size_t idx = urand(g.gl_pathc);
-			picfile = g.gl_pathv[idx];
+			if(g.gl_pathc > 0) {
+				size_t idx = urand(g.gl_pathc);
+				picfile = g.gl_pathv[idx];
+			}
 		}
 	}
 
@@ -132,7 +134,6 @@ void Ui_IconPowerView::setupUi(QWidget *widget)
 		status->setMinimumSize(0, 50);
 		status->setMaximumSize(0xFFFFFF, 50);
 		status->setStyleSheet(QString::fromUtf8("background: none;")); /*ref--*/
-
 		//QFlags align(0);
 		layout->addWidget(status, 0, /*&align*/0);
 
