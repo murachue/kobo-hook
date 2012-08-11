@@ -139,6 +139,9 @@ void Ui_IconPowerView::setupUi(QWidget *widget)
 		labelIcon->setAlignment(Qt::AlignCenter);
 		layout->addWidget(labelIcon, 0, 0);
 
+		labelTitle->setVisible(false);
+		status->setVisible(false);
+
 		globfree(&g);
 	} else {
 		// defaults
