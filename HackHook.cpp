@@ -108,8 +108,22 @@ void Ui_IconPowerView::setupUi(QWidget *widget)
 	// kindle or not...
 	char *picfile = NULL;
 	glob_t g;
-	if(chdir("/mnt/onboard/sleep") == 0) {
-		if(glob("*.png", GLOB_NOSORT | GLOB_NOESCAPE, NULL, &g) == 0) {
+	const char *sleeppath, *sleepglob;
+
+	sleeppath = getenv("HACK_SLEEP_PATH");
+	if(sleeppath == NULL)
+	{
+		sleeppath = "/mnt/onboard/hack/sleep";
+	}
+
+	sleepglob = getenv("HACK_SLEEP_GLOB");
+	if(sleepglob == NULL)
+	{
+		sleepglob = "*.png";
+	}
+
+	if(chdir(sleeppath) == 0) {
+		if(glob(sleepglob, GLOB_NOSORT | GLOB_NOESCAPE, NULL, &g) == 0) {
 			if(g.gl_pathc > 0) {
 				size_t idx = urand(g.gl_pathc);
 				picfile = g.gl_pathv[idx];
