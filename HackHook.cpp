@@ -35,7 +35,7 @@ class Ui_IconPowerView /* size 0x1C */
 	void setupUi(QWidget *widget);
 };
 
-size_t urand(size_t max)
+static size_t urand(size_t max)
 {
 	// TODO more good rand() please!
 	// TODO size_t!?
